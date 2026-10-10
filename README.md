@@ -94,12 +94,19 @@ sudo cp deploy/myapp.nginx.conf /etc/nginx/sites-available/myapp
 sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
 sudo rm -f /etc/nginx/sites-enabled/default   # если дефолтный сайт не нужен
 
-# замените server_name на свой домен или IP
-sudo nano /etc/nginx/sites-available/myapp
+# Если домена нет — менять ничего не нужно, в конфиге уже server_name _;
+# Появился домен — впишите его:
+#   sudo nano /etc/nginx/sites-available/myapp
 
 sudo nginx -t          # проверка синтаксиса
 sudo systemctl reload nginx
 ```
+
+Проверка: откройте в браузере `http://<IP-сервера>/`
+
+Важно: `default_server` должен быть только у одного сайта. Если дефолтный
+конфиг nginx не удалён, `nginx -t` предупредит о дубликате — удалите
+симлинк `sites-enabled/default` (команда выше).
 
 ## 5. Файрвол
 
@@ -112,7 +119,12 @@ sudo ufw enable
 Порт 8000 наружу открывать не нужно: uvicorn слушает только `127.0.0.1`,
 снаружи доступен лишь nginx.
 
-## 6. HTTPS (Let's Encrypt)
+## 6. HTTPS (Let's Encrypt) — только с доменом
+
+Для IP-адреса сертификат Let's Encrypt получить нельзя: он выдаётся только
+на доменные имена. Пока домена нет — работаем по http, этот шаг пропускаем.
+
+Когда домен появится:
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx

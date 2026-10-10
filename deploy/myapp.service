@@ -7,7 +7,7 @@ Type=simple
 User=www-data
 Group=www-data
 WorkingDirectory=/var/www/myapp/site_mega_horosh
-Environment="PATH=/var/www/myapp/site_mega_horosh/.venv/bin"
+Environment="PATH=/var/www/myapp/site_mega_horosh/.venv/bin:/usr/local/bin:/usr/bin:/bin"
 ExecStart=/var/www/myapp/site_mega_horosh/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 2
 Restart=always
 RestartSec=3
