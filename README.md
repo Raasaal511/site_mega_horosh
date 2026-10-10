@@ -46,23 +46,23 @@ sudo apt install -y python3-venv nginx
 ## 2. Код и окружение
 
 ```bash
-sudo mkdir -p /var/www/myapp
+sudo mkdir -p /var/www/myapp/site_mega_horosh
 # загрузите код, например:
-#   git clone <repo> /var/www/myapp
+#   git clone <repo> /var/www/myapp/site_mega_horosh
 #   или с локальной машины:
-#   rsync -av --exclude '.venv' ./ user@server:/var/www/myapp/
+#   rsync -av --exclude '.venv' ./ user@server:/var/www/myapp/site_mega_horosh/
 
-cd /var/www/myapp
+cd /var/www/myapp/site_mega_horosh
 sudo python3 -m venv .venv
 sudo .venv/bin/pip install -r requirements.txt
 
-sudo chown -R www-data:www-data /var/www/myapp
+sudo chown -R www-data:www-data /var/www/myapp/site_mega_horosh
 ```
 
 Проверка, что приложение поднимается:
 
 ```bash
-sudo -u www-data /var/www/myapp/.venv/bin/uvicorn app.main:app --port 8000
+sudo -u www-data /var/www/myapp/site_mega_horosh/.venv/bin/uvicorn app.main:app --port 8000
 # в другом терминале: curl localhost:8000/api/health
 ```
 
@@ -125,7 +125,7 @@ Certbot сам правит конфиг nginx (добавляет 443 и ред
 ## Обновление версии
 
 ```bash
-cd /var/www/myapp
+cd /var/www/myapp/site_mega_horosh
 sudo -u www-data git pull
 sudo .venv/bin/pip install -r requirements.txt
 sudo systemctl restart myapp
@@ -136,6 +136,6 @@ sudo systemctl restart myapp
 | Симптом | Что смотреть |
 |---|---|
 | 502 Bad Gateway | `systemctl status myapp`, `journalctl -u myapp -n 50` — приложение упало или слушает не тот порт |
-| 403/404 на `/static/` | права на `/var/www/myapp`, завершающий слэш в `alias` |
+| 403/404 на `/static/` | права на `/var/www/myapp/site_mega_horosh`, завершающий слэш в `alias` |
 | Изменения не видны | `systemctl restart myapp`; для статики — кэш браузера (Ctrl+Shift+R) |
 | nginx не стартует | `nginx -t`, `journalctl -u nginx -n 50` |
