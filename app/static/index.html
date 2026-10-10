@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo App</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Список задач</h1>
+      <span id="status" class="badge">...</span>
+    </header>
+
+    <form id="form" autocomplete="off">
+      <input id="title" placeholder="Что нужно сделать?" maxlength="200" required />
+      <button type="submit">Добавить</button>
+    </form>
+
+    <ul id="list"></ul>
+    <p id="empty" class="empty">Пока пусто.</p>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
